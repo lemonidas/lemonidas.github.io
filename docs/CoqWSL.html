@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Leonidas Lampropoulos - Installing Coq in Windows through WSL + OPAM</title>
+        <link rel="stylesheet" type="text/css" href="./css/default.css" />
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+              <br />
+              <a href="./">Leonidas</a></br>
+              <a href="./">Lampropoulos</a>
+            </div>
+            <div id="navigation">
+                <a href="./">Home</a>
+                <a href="./research.html">Research</a>
+                <a href="./contact.html">Misc</a>
+            </div>
+            <div id="credit">
+              Photo by Ioanna Galanis
+            </div>
+        </div>
+    
+        <div id="content">
+            <h1>Installing Coq in Windows through WSL + OPAM</h1>
+
+              Quite a few of my students were having trouble with using Coq inside Windows, so here are detailed instructions on how to do that with WSL 2 and opam:
+
+  <ol>
+    
+    <li>
+      Install the Windows Subsystem for Linux. 
+      This is as simple as running the following command from a PowerShell with admin priviledges:<br /><br />
+
+      <code>wsl --install</code><br /><br />
+
+      The above installs Ubuntu by default (which is probably the easiest choice and what I use for my lecture setup), but
+      you can find more customization options <a href="https://docs.microsoft.com/en-us/windows/wsl/install">from Microsoft</a>.<br />
+    </li>
+    <br />
+    <li>
+      Once you have Ubuntu set up, fire it up (and finish customizing username/password settings as needed).<br />
+      I highly recommend updating and upgrading the default packages.
+
+      <code>sudo apt update</code></br>
+      <code>sudo apt upgrade</code></br>    
+    </li>
+    <li>
+      Then install opam with the first script available at the <a href="https://opam.ocaml.org/doc/Install.html">opam installation website</a>.
+    </li>
+    <br />
+    <li>
+
+      Having opam install, try running <br /><br />
+
+      <code>opam init</code> <br /><br />
+
+      If everything goes right, you will be prompted that certain packages are recommended (make, cc) and required (unzip, bwrap). 
+    </li>
+    <br />
+
+    <li> Install these packages using apt:<br /><br />
+
+      <code>sudo apt install make gcc unzip bubblewrap </code><br /> 
+
+      When installing gcc, you might get prompted about "missing packages". Run:<br /><br />
+
+      <code>sudo apt-get update</code><br /><br />
+
+      and then try reinstalling gcc.
+    </li>
+
+    <li>
+      Now you are ready to initialize opam:
+
+      <code>opam init </code><br /><br />
+
+      This should take a while and install OCaml in your system.
+      You will be prompted to add a couple of options to
+      your <code>.profile</code> configuration file. I'd suggest doing that
+      as it allows you to avoid having to type <code>eval $(opam env)</code>
+      every time you open a shell.<br /><br />
+
+      After opam is installed, to bring the current shell up to date, run:<br /><br />
+
+      <code>eval $(opam env)</code>
+
+    </li>
+    <br />
+
+    <li>
+      Install coq using opam with the instructions
+      available <a href="https://coq.inria.fr/opam-using.html">here</a>.
+      For the Fall 2022 iteration of CMSC 631, the Coq version we will be
+      using is 8.15.0 : <br /><br />
+
+      <code>opam pin add coq 8.15.0</code><br /><br />
+
+      This could take a while, as it builds Coq from source. After it is complete, run "coqc" to ensure everything works:<br /><br />
+
+      <code>coqc -v</code>
+    </li>
+    <br />
+
+    <li>
+      Install emacs:<br /><br />
+
+      <code>sudo apt install emacs</code>
+    </li>
+    <br />
+    <li>
+      Install proof general using the instructions available <a href="https://proofgeneral.github.io/">here</a><br /><br />.
+
+      At your home directory create a <code>.emacs</code> file and paste
+      the <code>(require ... initialize)</code> stub from the website, then
+      restart emacs and execute the <code>package-refresh-contents</code> and
+      <code>package-install</code> commands. (<code>M-x</code> means
+      pressing the Alt key together with 'x', similarly <code>C-</code>
+      means Ctrl)<br /><br />
+
+      Opening a .v file with emacs should now greet you with a proof general logo.
+    </li>
+    <br /><br />
+
+      <i>At this point you should be good to go.<br />
+        But here are a couple more quality of life changes that make graphical applications run inside WSL actually readable:</i><br /><br /><br />
+
+    <li>
+      <b>vcxsrv:</b> Back in your normal windows machine, install the <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv X server for windows</a>.<br /><br />
+
+      Launch vcxsrv through xlaunch; select display 0 and "disable access controls" when prompted.
+    </li>
+    <br />
+
+    <li> Back in Ubuntu land, edit your <code>.bashrc</code> file by adding the following line. This tells ubuntu to use the xserver you just launched
+      to display graphical applications.<br /><br />
+
+      <code>export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0</code>
+    </li>
+    <br />
+
+    <li>
+      Launch a new ubuntu terminal (for the <code>.bashrc</code> changes to take effect). Run emacs in the background by adding "&" at the end:<br /><br />
+
+      <code>emacs <i>file</i> &</code><br /><br />
+
+      This should open emacs in a new x window while allowing you to use the terminal for other things.
+    </li>
+    <br />
+
+    <li>
+      Customize emacs. This is obviously a personal preference, but here is my default configuration,
+      that you can include in your <code>.emacs</code>:<br /><br />
+
+      <code>
+;;; Always newline in end of file<br />
+(setq require-final-newline nil)<br />
+<br />
+;;; Proper Indentations...<br />
+(setq standard-indent 2)<br />
+(setq-default indent-tabs-mode nil)<br />
+<br />
+;;; Remove Backup File Creation<br />
+(setq make-backup-files nil)<br />
+<br />
+;;; Set background/foreground to black/white<br />
+(set-background-color "black")<br />
+(set-foreground-color "white")<br />
+<br />
+;;; Aligning with C-= within a region<br />
+(global-set-key (kbd "C-=") 'align-regexp)<br />
+<br />
+;;; CUA mode for rectangles (This allows you to operate on multiple lines at the same time with C-RET)<br />
+(cua-mode)<br />
+(setq cua-auto-tabify-rectangles nil)<br />
+(setq cua-enable-cua-keys        nil)<br />
+<br />
+;;; ido completion stuff (File-system completion)<br />
+(require 'ido)<br />
+(setq ido-enable-flex-matching t)<br />
+(setq ido-everywhere t)<br />
+(setq ido-file-extensions-order '(".v" ".tex" ".org" ".txt" ".py" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))<br />
+(setq ido-ignore-extensions t)<br />
+(setq ido-auto-merge-delay-time 1000)<br />
+(ido-mode 1) <br />
+<br />
+;;; Proof General QoL (Disables startup screen and ensures the Coq buffers are on the "right")<br />
+(setq proof-splash-enable nil)<br />
+(setq proof-three-window-mode-policy 'hybrid)<br />
+</code>
+</li>
+  
+
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
