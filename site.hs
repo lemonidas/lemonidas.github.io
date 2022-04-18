@@ -47,7 +47,6 @@ main = do
   createBibs bibs  
   insertBibs bibs
   hakyllWith config $ do  
---  hakyll $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
