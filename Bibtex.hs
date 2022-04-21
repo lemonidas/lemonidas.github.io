@@ -105,7 +105,7 @@ toHtml :: Bib -> Doc
 toHtml bib =
   PP.nest 2 $ PP.vcat [ PP.text "<li>"
                       , PP.nest 2 $ PP.vcat [ PP.text ("<b> " ++ _title bib ++ " </b>")
-                                            , PP.text ("<a href=\".pdf/" ++ _name bib ++ ".pdf\">PDF</a> <a href=\"./bib/" ++ _name bib ++ ".bib\">(BIB)<a/><br/>")
+                                            , PP.text ("<a href=\"./pdf/" ++ _name bib ++ ".pdf\">PDF</a> <a href=\"./bib/" ++ _name bib ++ ".bib\">(BIB)<a/><br/>")
                                             , PP.text ("<p>" ++ _authors bib ++ ". <i> " ++ _short bib ++ " " ++ _year bib ++ "</i></p>")
                                             ]
                       , PP.text ("</li>")
