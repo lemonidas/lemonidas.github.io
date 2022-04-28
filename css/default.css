@@ -5,6 +5,15 @@ body {
     margin-left:450px;
 }
 
+@media screen and (max-width: 800px) {
+  body {
+      font-family: sans-serif;
+      margin-top:50px;
+      padding-top: 20px;
+      margin-left:220px;
+  }
+}
+
 div#header {
     padding: 12px 20px 12px 0px;
     height: 100%;
@@ -17,6 +26,20 @@ div#header {
     background-color: #333e50;
 }
 
+@media screen and (max-width: 800px) {
+  div#header {
+      padding: 12px 20px 12px 0px;
+      height: 100%;
+      width:200px;
+      position:fixed;
+      left:0;
+      top:0;
+      background-image: url("/images/LeoBlossoms200.jpg");
+      background-repeat: no-repeat;
+      background-color: #333e50;
+  }
+}
+
 div#header #credit {
     text-align:right;
     color:white;
@@ -24,6 +47,17 @@ div#header #credit {
     bottom:0%;
     position:fixed;
 }
+
+@media screen and (max-width: 800px) {
+  div#header #credit {
+      text-align:right;
+      color:white;
+      left:30px;
+      bottom:0%;
+      position:fixed;
+  }
+}
+
 
 div#header #logo {
     text-align: left;
@@ -40,6 +74,18 @@ div#logo a {
     text-decoration: none;
     width: 450px;
 }
+
+@media screen and (max-width: 800px) {
+  div#logo a {
+      color: #fff;
+      font-family: times, serif;
+      font-size: 38px;
+      font-weight: light;
+      text-decoration: none;
+      width: 220px;
+  }
+}
+
 
 div#header #navigation {
     display:table;
