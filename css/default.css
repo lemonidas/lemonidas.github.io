@@ -5,12 +5,12 @@ body {
     margin-left:450px;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1280px) {
   body {
       font-family: sans-serif;
       margin-top:50px;
       padding-top: 20px;
-      margin-left:220px;
+      margin-left:200px;
   }
 }
 
@@ -26,11 +26,11 @@ div#header {
     background-color: #333e50;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1280px) {
   div#header {
       padding: 12px 20px 12px 0px;
       height: 100%;
-      width:200px;
+      width:180px;
       position:fixed;
       left:0;
       top:0;
@@ -48,11 +48,11 @@ div#header #credit {
     position:fixed;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1280px) {
   div#header #credit {
       text-align:right;
       color:white;
-      left:30px;
+      left:20px;
       bottom:0%;
       position:fixed;
   }
@@ -66,6 +66,16 @@ div#header #logo {
     margin-left: 40px;
 }
 
+@media screen and (max-width: 1280px) {
+  div#header #logo {
+      text-align: left;
+      margin-bottom: 60px;
+      margin-top: 380px;
+      margin-left: 40px;
+  }
+}
+
+
 div#logo a {
     color: #fff;
     font-family: times, serif;
@@ -75,14 +85,14 @@ div#logo a {
     width: 450px;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1280px) {
   div#logo a {
       color: #fff;
       font-family: times, serif;
-      font-size: 38px;
+      font-size: 24px;
       font-weight: light;
       text-decoration: none;
-      width: 220px;
+      width: 200px;
   }
 }
 
