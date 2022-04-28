@@ -5,7 +5,7 @@ body {
     margin-left:450px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1250px) {
   body {
       font-family: sans-serif;
       margin-top:50px;
@@ -26,7 +26,7 @@ div#header {
     background-color: #333e50;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1250px) {
   div#header {
       padding: 12px 20px 12px 0px;
       height: 100%;
@@ -48,7 +48,7 @@ div#header #credit {
     position:fixed;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1250px) {
   div#header #credit {
       text-align:right;
       color:white;
@@ -75,7 +75,7 @@ div#logo a {
     width: 450px;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1250px) {
   div#logo a {
       color: #fff;
       font-family: times, serif;
