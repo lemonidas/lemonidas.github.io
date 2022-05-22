@@ -118,5 +118,7 @@ pp bib =
                        , PP.text "title = {" <> PP.text (_title bib) <> PP.text "},"
                        , PP.text "booktitle = {" <> PP.text (_procs bib) <> PP.text "},"
                        , PP.text "shortbooktitle = {" <> PP.text (_short bib) <> PP.text "},"
-                       , PP.text "url = {" <> PP.text (_url bib) <> PP.text "}," ]) PP.$$
+                       , PP.text "url = {" <> PP.text (_url bib) <> PP.text "},"
+                       , PP.text "year = {" <> PP.text (_year bib) <> PP.text "},"
+                       ]) PP.$$
     PP.char '}'
