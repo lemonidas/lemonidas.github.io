@@ -90,7 +90,7 @@ main = do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    match (fromList ["research.html", "CoqWSL.html", "misc.html"]) $ do
+    match (fromList ["research.html", "CoqWSL.html", "misc.html", "students.html"]) $ do
         route idRoute
         compile $ do
             getResourceBody
