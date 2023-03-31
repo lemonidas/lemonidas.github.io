@@ -112,7 +112,7 @@
     </li>
     <br />
     <li>
-      Install proof general using the instructions available <a href="https://proofgeneral.github.io/">here</a><br /><br />.
+      Install proof general using the instructions available <a href="https://proofgeneral.github.io/">here.</a><br /><br />
 
       At your home directory create a <code>.emacs</code> file and paste
       the <code>(require ... initialize)</code> stub from the website, then
@@ -129,18 +129,23 @@
         But here are a couple more quality of life changes that make graphical applications run inside WSL actually readable:</i><br /><br /><br />
 
     <li>
-      <b>vcxsrv:</b> Back in your normal windows machine, install the <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv X server for windows</a>.<br /><br />
+      <b>If you're running Windows 10</b>, you need an external display server:<br /><br />
+      
+      vcxsrv: Back in your normal windows machine, install the <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv X server for windows</a>.<br /><br />
 
       Launch vcxsrv through xlaunch; select display 0 and "disable access controls" when prompted.
-    </li>
-    <br />
+      <br />
 
-    <li> Back in Ubuntu land, edit your <code>.bashrc</code> file by adding the following line. This tells ubuntu to use the xserver you just launched
+      Back in Ubuntu land, edit your <code>.bashrc</code> file by adding the following line. This tells ubuntu to use the xserver you just launched
       to display graphical applications.<br /><br />
 
       <code>export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0</code>
+
+      <br /><br />
+      <b>If you're running Windows 11:</b> you only need to edit your <code>.bashrc</code> file by adding the following line. <br /><br />
+
+      <code>export DISPLAY=:=0</code><br />
     </li>
-    <br />
 
     <li>
       Launch a new ubuntu terminal (for the <code>.bashrc</code> changes to take effect). Run emacs in the background by adding "&" at the end:<br /><br />
