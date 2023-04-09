@@ -1,4 +1,4 @@
-{-# LANGUAGE InstanceSigs, RankNTypes #-}
+{-# LANGUAGE InstanceSigs, RankNTypes, ScopedTypeVariables #-}
 module Bibtex where
 
 import Prelude hiding ((<>))
@@ -15,6 +15,10 @@ import Text.PrettyPrint (Doc, (<+>), (<>))
 import qualified Text.PrettyPrint as PP
 
 import Data.Void (Void)
+import Data.List
+import Data.List.Split (splitOn)
+
+import Debug.Trace(trace)
 
 -- | Data Modelling
 
@@ -27,6 +31,7 @@ data Bib = Bib
   , _authors :: String
   , _url  :: String
   , _year :: String
+  , _doi :: String
   , _keys :: [String]
   , _rest :: [(String, String)]
   } deriving (Eq, Show)
@@ -96,17 +101,33 @@ toBib t@(TempBib tn es) =
          , _short = finder "shortbooktitle"
          , _authors = finder "author"
          , _year = finder "year"
+         , _doi = finder "doi"
          , _url  = url
          , _keys = keys
          , _rest = [] -- TODO: FIX
          }
+
+trim :: String -> String
+trim = dropWhileEnd Char.isSpace . dropWhile Char.isSpace
+
+parseAuthors :: String -> [String]
+parseAuthors authors =
+  [ case splitOn "," author of
+      [last,first] -> trim first ++ " " ++ trim last
+      _ -> trace author []
+  | author <- splitOn "and" authors]
+
+renderAuthors :: Bool -> [String] -> Doc
+renderAuthors _ [author] = PP.text author
+renderAuthors b [author1, author2] = PP.text author1 <> (if b then PP.text ", and " else PP.text " and ") <> PP.text author2
+renderAuthors _ (author:authors) = PP.text author <> PP.text ", " <> renderAuthors True authors
 
 toHtml :: Bib -> Doc
 toHtml bib =
   PP.nest 2 $ PP.vcat [ PP.text "<li>"
                       , PP.nest 2 $ PP.vcat [ PP.text ("<b> " ++ _title bib ++ " </b>")
                                             , PP.text ("<a href=\"./pdf/" ++ _name bib ++ ".pdf\">PDF</a> <a href=\"./bib/" ++ _name bib ++ ".bib\">(BIB)<a/><br/>")
-                                            , PP.text ("<p>" ++ _authors bib ++ ". <i> " ++ _short bib ++ " " ++ _year bib ++ "</i></p>")
+                                            , PP.text "<p>" <> renderAuthors False (parseAuthors (_authors bib)) <> PP.text (". <i> " ++ _short bib ++ " " ++ _year bib ++ "</i></p>")
                                             ]
                       , PP.text ("</li>")
                       ]
@@ -120,5 +141,6 @@ pp bib =
                        , PP.text "shortbooktitle = {" <> PP.text (_short bib) <> PP.text "},"
                        , PP.text "url = {" <> PP.text (_url bib) <> PP.text "},"
                        , PP.text "year = {" <> PP.text (_year bib) <> PP.text "},"
+                       , PP.text "doi = {" <> PP.text (_doi bib) <> PP.text "},"                       
                        ]) PP.$$
     PP.char '}'
