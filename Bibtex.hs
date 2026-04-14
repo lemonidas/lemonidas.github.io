@@ -79,7 +79,7 @@ tempBibEntry :: Parser TempBib
 tempBibEntry = TempBib <$> bibOpener <*> (bibEntries <* char '}' <* space)
 
 --debuger :: Parser (String, String)
-debuger = do
+debugger = do
   open <- bibOpener
   ea <- many bibEntry
   return (open, ea)
@@ -115,7 +115,7 @@ parseAuthors authors =
   [ case splitOn "," author of
       [last,first] -> trim first ++ " " ++ trim last
       _ -> trace author []
-  | author <- splitOn "and" authors]
+  | author <- splitOn " and" authors]
 
 renderAuthors :: Bool -> [String] -> Doc
 renderAuthors _ [author] = PP.text author
