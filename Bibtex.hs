@@ -115,7 +115,8 @@ parseAuthors authors =
   [ case splitOn "," author of
       [last,first] -> trim first ++ " " ++ trim last
       _ -> trace author []
-  | author <- splitOn " and" authors]
+  | author <-splitOn " and" authors]
+
 
 renderAuthors :: Bool -> [String] -> Doc
 renderAuthors _ [author] = PP.text author

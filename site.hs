@@ -35,6 +35,7 @@ insertBibs bibs = do
       outp = unlines $ front ++ bibadd ++ back
   hPutStrLn routp outp
 
+
 --------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
@@ -44,7 +45,7 @@ config = defaultConfiguration
 main :: IO ()
 main = do
   bibs <- getAllBibs
-  createBibs bibs  
+  createBibs bibs
   insertBibs bibs
   hakyllWith config $ do  
     match "images/*" $ do
